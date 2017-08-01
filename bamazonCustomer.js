@@ -19,10 +19,11 @@ var makeTable = function () {
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw error;
         var tab = '\t';
+        // console.log(res);
         console.log("ItemID\tProduct Name\tDepartment Name\tPrice\t# In Stock");
         console.log("----------------------------------------------------------");
         for (var i = 0; i < res.length; i++) {
-            console.log(res[i].item_id + tab + res[i].product_name + tab +
+            console.log(res[i].id + tab + res[i].product_name + tab +
                 res[i].department_name + tab + res[i].price + tab + res[i].stock_quantity);
         }
         console.log("-----------------------------------------------------------");
@@ -74,4 +75,3 @@ var promptCustomer = function (res) {
     });
 }
 
-makeTable ();
