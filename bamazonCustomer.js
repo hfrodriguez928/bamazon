@@ -1,5 +1,7 @@
 var mysql = require("mysql");
 var inquire = require("inquirer");
+var Table = require('cli-table2');
+
 var connection = mysql.createConnection({
     host: "localhost",
     port: 8889,
@@ -15,21 +17,21 @@ connection.connect(function (err) {
     }
     makeTable();
 });
+// function connects to database and displays table
 var makeTable = function () {
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw error;
-        var tab = '\t';
-        // console.log(res);
-        console.log("ItemID\tProduct Name\tDepartment Name\tPrice\t# In Stock");
-        console.log("----------------------------------------------------------");
-        for (var i = 0; i < res.length; i++) {
-            console.log(res[i].id + tab + res[i].product_name + tab +
-                res[i].department_name + tab + res[i].price + tab + res[i].stock_quantity);
-        }
-        console.log("-----------------------------------------------------------");
+       var table = new Table({
+    head: ['Item ID', 'Product Name', 'Department Name', 'Price', 'Stock Quantity']
+  });
+  for (var i = 0; i < res.length; i++) {
+    table.push([res[i].item_id, res[i].product_name, res[i].department_name, res[i].price, res[i].stock_quantity]);
+  }
+  console.log(table.toString());
         promptCustomer(res);
     });
 };
+// function prompts the customer & depletes stock if something is purchased
 var promptCustomer = function (res) {
     inquire.prompt([{
         type: 'input',
@@ -69,7 +71,7 @@ var promptCustomer = function (res) {
             }
         }
         if (i === res.length && correct === false) {
-            console.log("Nott a valid selection");
+            console.log("Not a valid selection");
             promptCustomer(res);
         }
     });
