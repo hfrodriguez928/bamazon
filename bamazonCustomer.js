@@ -10,7 +10,7 @@ var connection = mysql.createConnection({
     database: "bamazon"
 });
 connection.connect(function (err) {
-    if (error) {
+    if (err) {
         console.log("error connnecting: " + err.stack);
     }
     makeTable();
@@ -75,4 +75,3 @@ var promptCustomer = function (res) {
 }
 
 makeTable ();
-promptCustomer ();
