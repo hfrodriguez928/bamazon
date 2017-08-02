@@ -1,4 +1,4 @@
-# bamazon
+# Bamazon
 
 **OVERVIEW** 
 
@@ -13,3 +13,5 @@ On load the customer app will load the table and display all items for sale and 
 
 The application will also know if the item does not exist or if the quanity requested is less than number in-stock.
 ![alt tag](image2.png)
+
+
